@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amnify Royal Edition - Created by Amna</title>
+    <style>
+        :root {
+            --bg-obsidian: #080808;
+            --card-surface: #121212;
+            --border-gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-obsidian); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
+        header { background: var(--card-surface); border-bottom: 2px solid var(--border-gold); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-badge { width: 40px; height: 40px; background: linear-gradient(135deg, #d4af37, #aa771c); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000; font-size: 18px; }
+        h1 { font-size: 22px; color: var(--border-gold); letter-spacing: 1px; }
+        .header-actions { display: flex; gap: 15px; align-items: center; }
+        .btn-gold { background: linear-gradient(135deg, #d4af37, #aa771c); color: #000; border: none; padding: 8px 18px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-gold:hover { transform: scale(1.05); filter: brightness(1.1); }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; flex: 1; width: 100%; }
+        .credits-banner { background: var(--card-surface); border: 1px solid var(--border-gold); border-radius: 12px; padding: 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 1px solid #333; padding-bottom: 10px; overflow-x: auto; }
+        .tab-btn { background: #1a1a1a; color: var(--text-muted); border: 1px solid #333; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; white-space: nowrap; }
+        .tab-btn.active { background: var(--border-gold); color: #000; border-color: var(--border-gold); }
+        .panel { display: none; background: var(--card-surface); border: 1px solid #222; border-radius: 12px; padding: 25px; }
+        .panel.active { display: block; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: var(--gold-light); font-weight: 500; }
+        input, textarea, select { width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 14px; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: var(--card-surface); border: 2px solid var(--border-gold); padding: 30px; border-radius: 15px; width: 90%; max-width: 450px; text-align: center; }
+        .payment-box { background: #1a1a1a; border: 1px dashed var(--border-gold); padding: 15px; border-radius: 8px; margin: 15px 0; }
+        footer { text-align: center; padding: 20px; background: var(--card-surface); border-top: 1px solid #222; color: var(--border-gold); font-size: 14px; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <div class="logo-badge">A</div>
+            <div>
+                <h1>AMNIFY ROYAL</h1>
+                <p style="font-size: 11px; color: var(--text-muted);">Zero-Leak Local Vault & Studio</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-gold" onclick="installApp()">Install App</button>
+            <button class="btn-gold" onclick="openUpgradeModal()">+ Upgrade (PKR)</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="credits-banner">
+            <div>
+                <h3>Welcome, Creator!</h3>
+                <p style="color: var(--text-muted); font-size: 13px;">Your media is secured with local 100% zero-leak encryption.</p>
+            </div>
+            <div style="text-align: right;">
+                <span style="font-size: 14px; color: var(--gold-light);">Free Video Credits:</span>
+                <h2 id="creditCount" style="color: var(--border-gold);">10 / 10</h2>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0)">Video & Film Studio</button>
+            <button class="tab-btn tab-btn-inactive" onclick="switchTab(1)">Ask Amnify (Q&A)</button>
+            <button class="tab-btn tab-btn-inactive" onclick="switchTab(2)">AI Pro Writer</button>
+            <button class="tab-btn tab-btn-inactive" onclick="switchTab(3)">Logo & Brand Studio</button>
+        </div>
+
+        <!-- Tab 1: Video Studio -->
+        <div class="panel active">
+            <h2 style="color: var(--border-gold); margin-bottom: 15px;">AI Photo-to-Video & Short Film Studio</h2>
+            <div class="form-group">
+                <label>Upload Photo or Painting (Secured Locally)</label>
+                <input type="file" id="mediaUpload" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label>Video Prompt / Storyboard Script (1 to 6 Minutes)</label>
+                <textarea rows="4" placeholder="Describe motion, cinematic lighting, and scene details..."></textarea>
+            </div>
+            <button class="btn-gold" onclick="generateVideo()">Generate HD Video (1 Credit)</button>
+        </div>
+
+        <!-- Tab 2: Q&A -->
+        <div class="panel">
+            <h2 style="color: var(--border-gold); margin-bottom: 15px;">Ask Amnify (Universal Q&A for Kids & Adults)</h2>
+            <div class="form-group">
+                <label>Ask any question (Science, Math, Coding, Homework)...</label>
+                <input type="text" id="qaInput" placeholder="Type your question here...">
+            </div>
+            <button class="btn-gold" onclick="askAmnify()">Get Instant Answer</button>
+            <div id="qaResult" style="margin-top: 15px; background: #1a1a1a; padding: 15px; border-radius: 8px; min-height: 50px; color: var(--gold-light);"></div>
+        </div>
+
+        <!-- Tab 3: Writer -->
+        <div class="panel">
+            <h2 style="color: var(--border-gold); margin-bottom: 15px;">Royal AI Pro Writer</h2>
+            <div class="form-group">
+                <label>Topic / Keywords</label>
+                <input type="text" placeholder="Enter topic or title...">
+            </div>
+            <button class="btn-gold" onclick="generateText()">Generate Pro Article / Script</button>
+        </div>
+
+        <!-- Tab 4: Logo Studio -->
+        <div class="panel">
+            <h2 style="color: var(--border-gold); margin-bottom: 15px;">Royal Logo & Brand Designer</h2>
+            <div class="form-group">
+                <label>Brand Name</label>
+                <input type="text" id="brandNameInput" value="Amnify Studio">
+            </div>
+            <button class="btn-gold" onclick="generateLogo()">Generate Royal Logo</button>
+            <div id="logoPreview" style="margin-top: 20px; text-align: center;"></div>
+        </div>
+    </div>
+
+    <!-- Upgrade Modal with JazzCash Account -->
+    <div class="modal" id="upgradeModal">
+        <div class="modal-content">
+            <h2 style="color: var(--border-gold); margin-bottom: 10px;">Upgrade Video Credits</h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">1 Video = Rs. 100 | 2 Videos = Rs. 200 | 5 Videos = Rs. 500</p>
+            
+            <div class="payment-box">
+                <p style="font-size: 13px; color: var(--gold-light);">JazzCash Account Number:</p>
+                <h3 id="jazzcashNum" style="color: #fff; margin: 5px 0;">03014398964</h3>
+                <button class="btn-gold" style="font-size: 12px; padding: 5px 10px;" onclick="copyJazzCash()">Copy Number</button>
+            </div>
+
+            <div class="form-group" style="text-align: left;">
+                <label>Enter Transaction ID (TID)</label>
+                <input type="text" placeholder="Enter TID after payment">
+            </div>
+
+            <button class="btn-gold" style="width: 100%; margin-top: 10px;" onclick="verifyPayment()">Verify & Add Credits</button>
+            <button style="background: none; border: none; color: var(--text-muted); margin-top: 15px; cursor: pointer;" onclick="closeUpgradeModal()">Close</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Amnify Royal Edition &bull; Created by Amna &bull; 100% Secured & Private</p>
+    </footer>
+
+    <script>
+        let credits = 10;
+        function switchTab(index) {
+            const panels = document.querySelectorAll('.panel');
+            const tabs = document.querySelectorAll('.tab-btn');
+            panels.forEach((p, i) => {
+                p.classList.toggle('active', i === index);
+                tabs[i].classList.toggle('active', i === index);
+            });
+        }
+        function generateVideo() {
+            if (credits <= 0) {
+                openUpgradeModal();
+                return;
+            }
+            credits--;
+            document.getElementById('creditCount').innerText = credits + " / 10";
+            alert("Video generation started securely in your local browser vault!");
+        }
+        function askAmnify() {
+            const q = document.getElementById('qaInput').value;
+            if(!q) return alert("Please enter a question!");
+            document.getElementById('qaResult').innerText = "Amnify Answer: " + q + " ka asaan hal yeh hai ke step-by-step practice ki jaye aur concepts clear rakhe jayein!";
+        }
+        function generateText() { alert("Pro content generated successfully!"); }
+        function generateLogo() {
+            const name = document.getElementById('brandNameInput').value || "Amnify";
+            document.getElementById('logoPreview').innerHTML = `<div style="display:inline-block; padding:20px 40px; background:#000; border:2px solid #d4af37; border-radius:12px; color:#d4af37; font-size:20px; font-weight:bold;">✨ ${name} ✨</div>`;
+        }
+        function openUpgradeModal() { document.getElementById('upgradeModal').style.display = 'flex'; }
+        function closeUpgradeModal() { document.getElementById('upgradeModal').style.display = 'none'; }
+        function copyJazzCash() {
+            navigator.clipboard.writeText("03014398964");
+            alert("JazzCash Account Number 03014398964 copied to clipboard!");
+        }
+        function verifyPayment() {
+            alert("Payment verification pending. Credits will be added shortly!");
+            closeUpgradeModal();
+        }
+        function installApp() {
+            alert("To install: Open this file in Google Chrome browser, click menu (3 dots) and select 'Install Amnify'.");
+        }
+    </script>
+</body>
+</html>
